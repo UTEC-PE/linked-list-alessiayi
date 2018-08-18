@@ -5,10 +5,13 @@ class List {
     struct Node {
         int data;
         struct Node* next;
+
+	void killSelf();
     };
 
     private:
         Node* head;
+        Node* tail;
         int nodes;
 
         void print_reverse(Node* head);
