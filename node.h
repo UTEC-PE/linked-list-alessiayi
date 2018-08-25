@@ -9,8 +9,9 @@ struct Node {
 
     void killSelf(){
       if (next){
-        delete next;//Mata al siguiente
+        next->killSelf();
       }
+      delete this;
     }
 };
 
