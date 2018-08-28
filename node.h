@@ -5,7 +5,8 @@ template <typename T>
 struct Node {
     T data;
     struct Node<T>* next;
-    struct Node<T>* before;
+
+    Node <T>(): next(NULL){};
 
     void killSelf(){
       if (next){

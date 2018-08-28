@@ -21,14 +21,14 @@ class List {
 
         T front(){//Ver primero elemento
           if (head==NULL){//Si esta vacia
-            return -1;
+            throw "No hay elementos";
           }
           return head -> data;
         };
         T back(){//Ver ultimo elemento
           Node<T>* Temp=head;//Un Temp que apunta a la cabeza
           if (head==NULL){//Si esta vacia
-            return -1;
+            throw "No hay elementos";
           }
           while(Temp -> next) {//Mientras tenga un siguiente
             Temp=Temp -> next;//Temp apunta al siguiente
@@ -66,28 +66,40 @@ class List {
           nodes++;
         };
         void pop_front(){
-          Node<T>* Tmp = new Node<T>;
-          delete head;//Borar el head
-          Tmp=head -> next;//Tmp apunta al siguiente
-          head -> next=NULL;// El siguiente del head apunta a NULL para desaparecer todo
-          head=Tmp;
+          if (empty()){
+            throw "Lista Vacia";
+          }
+          else{
+            Node<T>* Tmp = head->next;
+            delete head;
+            head->next = NULL;
+            head = Tmp;
+          }
           nodes--;
         };
         void pop_back(){
           Node<T>* Tmp = head;
-          while (Tmp -> next -> next){//Hasta que haya un sig del seig (penultmo)
-            Tmp=Tmp -> next;
+          if (empty()){
+            throw "Lista Vacia";
           }
-          delete Tmp -> next;//Borra al sig (ultimo)
-          Tmp -> next=NULL;//El sig apunta al NULL
+          if (!head -> next){
+            head=NULL;
+          }
+          else{
+            while (Tmp -> next -> next){ //Hasta que haya un sig del seig (penultmo)
+              Tmp=Tmp -> next;
+            }
+            delete Tmp -> next; //Borra al sig (ultimo)
+            Tmp -> next=NULL; //El sig apunta al NULL
+          }
           nodes--;
         };
         T get(int position){
           if (head==NULL || position > nodes || position < 0){
-            return -1;
+            throw "Wrong position";
           }
           else{
-            if (position==0){
+            if (!position){
               return head -> data;
             }
             else{
@@ -100,6 +112,7 @@ class List {
                 c++;
                 Tmp=Tmp -> next;
               }
+              throw "NO";
             }
           }
         };
@@ -144,20 +157,15 @@ class List {
           }
           //-> es para punteros, . es para objetos
           LTmp -> print();//Imprimo nueva lista
-          LTmp -> clear();//Borro nueva lisa
         };
         void clear(){//Borrar todo
-          /*Node<T>* Tmp=new Node<T>;
-          while (Tmp){
-            delete head;//Borar el head
-            Tmp=head -> next;//Tmp apunta al siguiente
-            head -> next=NULL;// El siguiente del head apunta a NULL para desaparecer todo
-            head=Tmp;
+          while (head){
+            Node<T>* Tmp = head;
+            head = head->next;
+            delete Tmp;// El siguiente del head apunta a NULL para desaparecer todo
             nodes--;
-          }*/
-          if (head) {
-            head->killSelf();
           }
+          head = NULL;
         };
         Iterator<T> begin();
         Iterator<T> end();
