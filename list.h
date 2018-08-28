@@ -1,23 +1,23 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include <iostream>
-#include "node.h"
-#include "iterator.h"
-
-using namespace std;
-
-template <typename T>
 class List {
+    struct Node {
+        int data;
+        struct Node* next;
+
+	void killSelf();
+    };
+
     private:
-        Node<T>* head;
-        Node<T>* tail;//Nose para que es
+        Node* head;
+        Node* tail;
         int nodes;
 
-        void print_reverse(Node<T>* head);
+        void print_reverse(Node* head);
 
     public:
-        List() : head(NULL), tail(NULL), nodes(0) {};//Constructor
+        List();
 
         T front(){//Ver primero elemento
           if (head==NULL){//Si esta vacia
@@ -170,11 +170,7 @@ class List {
         Iterator<T> begin();
         Iterator<T> end();
 
-        ~List(){//destructor
-            if(head){
-                head->killSelf();
-            }
-            head = NULL;
-        }
+        ~List();
 };
+
 #endif
