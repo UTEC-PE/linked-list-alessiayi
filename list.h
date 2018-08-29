@@ -1,23 +1,23 @@
 #ifndef LIST_H
 #define LIST_H
 
+#include <iostream>
+#include "node.h"
+#include "iterator.h"
+
+using namespace std;
+
+template <typename T>
 class List {
-    struct Node {
-        int data;
-        struct Node* next;
-
-	void killSelf();
-    };
-
     private:
-        Node* head;
-        Node* tail;
+        Node<T>* head;
+        Node<T>* tail;//Nose para que es
         int nodes;
 
-        void print_reverse(Node* head);
+        void print_reverse(Node<T>* head);
 
     public:
-        List();
+        List() : head(NULL), tail(NULL), nodes(0) {};//Constructor
 
         T front(){//Ver primero elemento
           if (head==NULL){//Si esta vacia
@@ -116,13 +116,13 @@ class List {
             }
           }
         };
-        void concat(List<T> &other){
+        void concat(List<T> *other){
           Node<T>* Tmp = head;
           while (Tmp -> next){
             Tmp=Tmp -> next;
           }
-          Tmp -> next=other.head;
-          nodes += other.size();
+          Tmp -> next=other -> head;
+          nodes += other -> size();
         };
         bool empty(){
           if (head==NULL){
@@ -155,7 +155,7 @@ class List {
             LTmp -> push_front(Tmp -> data);//Hago un push front de la original a la nueva
             Tmp=Tmp -> next;
           }
-          //-> es para punteros, . es para objetos
+          //-> es para punteros, -> es para objetos
           LTmp -> print();//Imprimo nueva lista
         };
         void clear(){//Borrar todo
@@ -170,7 +170,11 @@ class List {
         Iterator<T> begin();
         Iterator<T> end();
 
-        ~List();
+        ~List(){//destructor
+            if(head){
+                head->killSelf();
+            }
+            head = NULL;
+        }
 };
-
 #endif
