@@ -124,7 +124,7 @@ class List {
           Tmp -> next=other -> head;
           nodes += other -> size();
         };
-        bool empty(){
+        bool empty(){ // Podría ser return head == NULL;
           if (head==NULL){
             return true;
           }
@@ -148,7 +148,7 @@ class List {
             cout << endl;
           }
         };
-        void print_reverse(){
+        void print_reverse(){ // Esto se puede mejorar en eficiecia al usar recursión
           List<T>* LTmp=new List<T>;
           Node<T>* Tmp=head;
           while(Tmp){
@@ -163,7 +163,7 @@ class List {
             Node<T>* Tmp = head;
             head = head->next;
             delete Tmp;// El siguiente del head apunta a NULL para desaparecer todo
-            nodes--;
+            nodes--; // Podrías igualar a 0 directamente
           }
           head = NULL;
         };
