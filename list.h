@@ -155,7 +155,7 @@ class List {
             LTmp -> push_front(Tmp -> data);//Hago un push front de la original a la nueva
             Tmp=Tmp -> next;
           }
-          //-> es para punteros, -> es para objetos
+          //-> es para punteros, . es para objetos
           LTmp -> print();//Imprimo nueva lista
         };
         void clear(){//Borrar todo
